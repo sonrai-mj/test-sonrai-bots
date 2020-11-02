@@ -4,5 +4,5 @@ type: Remediation
 title: Delete Subscription from Sonrai
 operation: EXECUTE_PYTHON_SCRIPT
 authorName: Sonrai Security
-cloud: AWS
+cloud: AZURE
 authorEmail: info@sonraisecurity.com

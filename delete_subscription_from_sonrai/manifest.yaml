@@ -1,0 +1,8 @@
+# Built-in Sonrai Bot: srn:supersonrai::bot/977e9469-1b95-49f8-8d69-80fe1019e09b
+version: 2020-10-26
+type: Remediation
+title: Delete Subscription from Sonrai
+operation: EXECUTE_PYTHON_SCRIPT
+authorName: Sonrai Security
+cloud: AWS
+authorEmail: info@sonraisecurity.com

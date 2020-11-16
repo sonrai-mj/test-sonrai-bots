@@ -12,9 +12,9 @@ def run(ctx):
     includeSamples = "true" # true or false
     scanMode = "FULL_SCAN" # FULL_SCAN, PARTIAL_SCAN or QUICK_SCAN
     classifiers = " ADDRESS, AWSACCESSKEY, AWSSECRETKEY, AZURECLIENTSECRET, AZURESAS, AZURESTORAGEACCOUNTKEY, BANKACCOUNTNUMBER, CREDITCARD, DOB, DRIVERSLICENSE, EMAIL, ENCRYPTIONKEY, FULLNAME, GCPAPIKEY, GCPSERVICEACCOUNTKEY, PASSPORTNUMBER, PHONENUMBER, POSTCODE, SIN, SSN, TAXNUMBER, ZIPCODE"
-    encryptionEnabled = "true" # true or false
+    encryptionEnabled = "false" # true or false
     # comment out next line if encryptionEnabled is false
-    publicKey ="-----BEGIN PUBLIC KEY-----\\nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA5//KZA2xGUfTV8ohNOAj\\ny6ovDomGqL8Hq5g91vaLs9HfVIR8lrviP9S30y9KWPVWZ/3LWxLzN2uz8OSfK0JS\\nYiCCGdsYa3WppsSlSgMiI9uhDXJpgyBKNoKQcyZR67Bpbtj7/lR4kT6S3kNbIDNf\\nzO/dG4G9MGmdEE0A2wUgCKLHIMH7IoL4dfaSYW4eNcW+uxwX/pnUHWtLAlUFUel1\\np/LDUhjzEuQfw7MfLGHos6h54R+MaY+6OBd+NL6LKswlDwatMK+iu7BLTz3NP6GP\\nZ53n7yKrEs8vHmmTPRTqdEq+EtTtuKmF36j9NJm/t+krhhCqcAuGtyJT2FaBP5kE\\nsQIDAQAB\\n-----END PUBLIC KEY-----"
+    #publicKey ="-----BEGIN PUBLIC KEY-----\\nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA5//KZA2xGUfTV8ohNOAj\\ny6ovDomGqL8Hq5g91vaLs9HfVIR8lrviP9S30y9KWPVWZ/3LWxLzN2uz8OSfK0JS\\nYiCCGdsYa3WppsSlSgMiI9uhDXJpgyBKNoKQcyZR67Bpbtj7/lR4kT6S3kNbIDNf\\nzO/dG4G9MGmdEE0A2wUgCKLHIMH7IoL4dfaSYW4eNcW+uxwX/pnUHWtLAlUFUel1\\np/LDUhjzEuQfw7MfLGHos6h54R+MaY+6OBd+NL6LKswlDwatMK+iu7BLTz3NP6GP\\nZ53n7yKrEs8vHmmTPRTqdEq+EtTtuKmF36j9NJm/t+krhhCqcAuGtyJT2FaBP5kE\\nsQIDAQAB\\n-----END PUBLIC KEY-----"
 
     # Mutation for schedule Data Classification
     query = ( 'mutation dc {' +

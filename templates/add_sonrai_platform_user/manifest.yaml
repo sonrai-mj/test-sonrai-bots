@@ -1,0 +1,50 @@
+# title of ticket template is required
+title: "Add Users to Sonrai Platform"
+
+# The next fields are optional:
+description: "This template allows you to setup a repeatable process of adding users to the Sonrai Platform"
+version: "0.0.1"
+authorName: "Sonrai Security"
+authorEmail: "info@sonraisecurity.com"
+
+# one or more fields must be specified
+fields:
+  - name: "Group select"
+    required: true 
+    type: "select"
+    mutli: true
+    select:
+      search: "{ Groups (where: { type: { op:EQ, value: ActiveDirectoryGroup }}) { items { srn name } } }"
+      path: ["data", "Groups", "items"]
+      valueField: "srn"
+      labelFields: ["name", "srn"]
+
+  - name: "Email Domains"
+    required: true
+    type: "text"
+
+  - name: "Sonrai Role"
+    required: true
+    type: "select"
+    mutli: true
+    select:
+      search: "{SonraiRoles {items {srn name}}}"
+      path: ["data", "SonraiRoles", "items"]
+      valueField: "srn"
+      labelFields: ["name", "srn"]
+
+  - name: "Swimlanes"
+    required: true
+    type: "select"
+    mutli: true
+    select:
+      search: "{Swimlanes {items {srn title}}}"
+      path: ["data", "Swimlanes", "items"]
+      valueField: "srn"
+      labelFields: ["title", "srn"]
+
+
+
+  - name: "Recheck interval (hours)"
+    required: true
+    type: "text"

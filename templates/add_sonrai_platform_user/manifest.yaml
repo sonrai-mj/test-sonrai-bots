@@ -9,7 +9,7 @@ authorEmail: "info@sonraisecurity.com"
 
 # one or more fields must be specified
 fields:
-  - name: "Group select"
+  - name: "AD Group"
     required: true 
     type: "select"
     multi: true
@@ -19,11 +19,11 @@ fields:
       valueField: "srn"
       labelFields: ["name", "srn"]
 
-  - name: "Email Domain(s)"
+  - name: "Email Domain"
     required: true
     type: "text"
 
-  - name: "Sonrai Role(s)"
+  - name: "Sonrai Role"
     required: true
     type: "select"
     multi: true

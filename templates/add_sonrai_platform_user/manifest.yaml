@@ -26,7 +26,7 @@ fields:
   - name: "Sonrai Role(s)"
     required: true
     type: "select"
-    mutli: true
+    multi: true
     select:
       search: "{SonraiRoles {items {srn name}}}"
       path: ["data", "SonraiRoles", "items"]
@@ -36,7 +36,7 @@ fields:
   - name: "Swimlane(s)"
     required: true
     type: "select"
-    mutli: true
+    multi: true
     select:
       search: "{Swimlanes {items {srn title}}}"
       path: ["data", "Swimlanes", "items"]

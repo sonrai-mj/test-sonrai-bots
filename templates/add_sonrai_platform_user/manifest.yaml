@@ -33,18 +33,6 @@ fields:
       valueField: "srn"
       labelFields: ["name", "srn"]
 
-  - name: "Swimlane(s)"
-    required: true
-    type: "select"
-    multi: true
-    select:
-      search: "{Swimlanes {items {srn title}}}"
-      path: ["data", "Swimlanes", "items"]
-      valueField: "srn"
-      labelFields: ["title", "srn"]
-
-
-
   - name: "Recheck interval (hours)"
     required: true
     type: "text"

@@ -6,9 +6,8 @@ import time
 def run(ctx):
     # Get the ticket data from the context
     ticket = ctx.config.get('data').get('ticket')
-    swimlaneList = ticket['swimlaneSRNs']
+    swimlaneList = ticket.get('swimlaneSRNs')
 
-    ticket_srn = ticket.get("srn")
     group_srns = None
     sonrai_roles = None
 

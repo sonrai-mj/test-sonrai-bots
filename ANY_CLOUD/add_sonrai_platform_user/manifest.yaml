@@ -6,5 +6,5 @@ description: This bot will invite users to the Sonrai Platform who are members o
 operation: EXECUTE_PYTHON_SCRIPT
 authorName: Sonrai Security
 #cloud: ANY_CLOUD
-cloud: AZURE
+cloud: Azure
 authorEmail: info@sonraisecurity.com

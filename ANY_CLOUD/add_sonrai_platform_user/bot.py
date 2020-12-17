@@ -2,11 +2,33 @@ import logging
 import sys
 import re
 import time
+import json
 
 def run(ctx):
     # Get the ticket data from the context
     ticket = ctx.config.get('data').get('ticket')
-    swimlaneList = ticket.get('swimlaneSRNs')
+    ticket_srn = ticket.get('srn')
+
+    # Create GraphQL client
+    graphql_client = ctx.graphql_client()
+
+    #query ticket endpoint for swimlanes
+    querySwimlanes = ('''
+    {
+      Tickets
+        (where: { srn: {op:EQ, value:"'''+ ticket_srn + '''"}}) 
+              {
+          items {
+            swimlaneSRNs
+          }
+        }
+      }
+    ''')
+    variables = { }
+    logging.info('Searching for swimlanes for ticket {}'.format(ticket_srn))
+    r_swimlanes = graphql_client.query(querySwimlanes, variables)
+
+    swimlaneList = r_swimlanes['Tickets']['items'][0]['swimlaneSRNs']
 
     group_srns = None
     sonrai_roles = None
@@ -23,9 +45,6 @@ def run(ctx):
             group_srns = value.strip('][').split(',')
         elif name == 'Sonrai Role':
             sonrai_roles = value.strip('][').split(',')
-
-    # Create GraphQL client
-    graphql_client = ctx.graphql_client()
 
     # Built query for groups
     group_filter = ""

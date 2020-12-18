@@ -85,6 +85,7 @@ def run(ctx):
     for active_user in r_platform_users['SonraiUsers']['items']:
         disable_user = True
         if active_user['email'] == 'support@sonraisecurity.com':
+            #ignore this user since it is the bot user
             continue
         #check if the userName is in the platform user list
         for user_in_group in r_AD_query['Users']['items']:
@@ -97,4 +98,4 @@ def run(ctx):
                           '"srn":"' +active_user['srn']+ '",'
                           '"isActive":false} }')
             #logging.info('disabling users {}'.format(active_user['email']))
-            #r_disable_user = graphql_client.query(mutation_disable, variables)
+            r_disable_user = graphql_client.query(mutation_disable, variables)

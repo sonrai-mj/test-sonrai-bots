@@ -93,9 +93,8 @@ def run(ctx):
                 disable_user = False
 
         if disable_user:
-            print(active_user['email'])
             variables = ( '{ "updateUser" : { ' +
                           '"srn":"' +active_user['srn']+ '",'
                           '"isActive":false} }')
-            #logging.info('disabling users {}'.format(active_user['email']))
+            logging.info('disabling users {}'.format(active_user['email']))
             r_disable_user = graphql_client.query(mutation_disable, variables)

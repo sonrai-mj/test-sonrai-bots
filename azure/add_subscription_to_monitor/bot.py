@@ -2,11 +2,14 @@ import logging
 import sys
 import re
 import time
+from datetime import datetime
 
 def run(ctx):
     # Get the ticket data from the context
     ticket = ctx.config.get('data').get('ticket')
     currentTime = round(time.time() * 1000)
+    now = datetime.now()
+    dateStamp = now.strftime("%Y-%m-%dT%H:%M:%S")
 
     # Create GraphQL client
     graphql_client = ctx.graphql_client()
@@ -30,13 +33,23 @@ def run(ctx):
     #GraphQL query for the subscriptions
     queryAllSubscriptions = ('''
     query Subscriptions ($tenant: String) {
-  Subscriptions (where: {account: {value:$tenant}}){
+  Subscriptions (where: {
+        account: {value:$tenant}
+        tagSet: {
+            op: NOT_CONTAINS
+            value: "SonraiBotAdded"
+            caseSensitive: false
+          }
+        
+        }
+        ){
     count
     items {
       type
       cloudType
       account
       resourceId
+      srn
     }
   }
 }
@@ -47,11 +60,11 @@ def run(ctx):
     r_subscriptions = graphql_client.query(queryAllSubscriptions, variables)
 
     # GraphQL to get monitored subscriptions on collector already
-    queryPlatformSubscriptions = ('''query CloudAccounts ($srn: String){
+    queryPlatformSubscriptions = ('''query CloudAccounts {
   PlatformCloudAccounts 
   (where:
     {
-      containedByAccount: {items: {srn: {value:$srn}}}
+      cloudType: {value:"azure"}
     }
   )
   {
@@ -62,11 +75,12 @@ def run(ctx):
     }
   }
 }''')
+
     variables = ( '{"srn": "'+collector_srn+'"}')
     logging.info('Searching for already monitored accounts on collector: {}'.format(collector_srn))
     r_platform_subscriptions = graphql_client.query(queryPlatformSubscriptions, variables)
 
-    # invite user mutation
+    # mutation to add Azure Subscription
     mutation_add_subscription = ''' mutation createSubAccount($account: PlatformcloudaccountCreator!) {
                   CreatePlatformcloudaccount(value: $account) {
                     srn
@@ -79,11 +93,19 @@ def run(ctx):
                   }
                 } '''
 
+    # mutation for adding a tag to the Subscription so it won't get processed again.
+    mutation_add_tag  = '''
+       mutation addTagsWithNoDuplicates($key: String, $value: String, $srn: ID) {
+       AddTag(value: {key: $key, value: $value, tagsEntity: {add: [$srn]}}) {srn key value }} 
+    '''
+
+
 
     for resourceId in r_subscriptions['Subscriptions']['items']:
         #step through all subscriptions to see if it is already added to a collector
         add_subscription = True
         subscriptionToAdd = re.sub("\/subscriptions\/","", resourceId['resourceId'])
+        subscription_srn = resourceId['srn']
 
         #check if the subscriptionToAdd is already added
         for existing_subscriptions in r_platform_subscriptions['PlatformCloudAccounts']['items']:
@@ -105,3 +127,5 @@ def run(ctx):
                          '}')
             logging.info('Adding Subscription {}'.format(subscriptionToAdd))
             r_add_subscription = graphql_client.query(mutation_add_subscription, variables)
+            variables = ('{"key":"SonraiBotAdded","value":"'+ dateStamp + '","srn":"'+subscription_srn+'"}')
+            r_add_tag = graphql_client.query(mutation_add_tag, variables)

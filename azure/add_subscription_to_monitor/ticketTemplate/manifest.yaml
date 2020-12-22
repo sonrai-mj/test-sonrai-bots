@@ -1,8 +1,8 @@
 # title of ticket template is required
-title: "Add subscriptions to collector"
+title: "Add Azure subscriptions to collector"
 
 # The next fields are optional:
-description: "This template allows you to setup a repeatable process of adding users to the Sonrai Platform"
+description: "This template allows you to setup a repeatable process of adding Azure Subscriptions to the Sonrai Platform"
 version: "0.0.1"
 authorName: "Sonrai Security"
 authorEmail: "info@sonraisecurity.com"

@@ -1,9 +1,0 @@
-# Built-in Sonrai Bot: srn:supersonrai::bot/a002c39d-250d-4889-886f-050d0767eecf
-version: 2020-10-28
-type: Remediation
-title: Forward Ticket to Syslog destination
-description: This bot will forward tickets to a syslog destination. To configure the destination of the forwarder, add the following text to the description of the Control Framework description\nSYSLOG_DESTINATION:<IP/FQDN>:port:<UDP/TCP>:<JSON/TXT>
-operation: EXECUTE_PYTHON_SCRIPT
-authorName: Sonrai Security
-cloud: AWS
-authorEmail: info@sonraisecurity.com

@@ -1,8 +1,0 @@
-# Built-in Sonrai Bot: srn:supersonrai::bot/202af6dc-f3ce-482a-a1b7-6434bdbfa100
-version: 2020-10-26
-type: Remediation
-title: Delete Account from Sonrai
-operation: EXECUTE_PYTHON_SCRIPT
-authorName: Sonrai Security
-cloud: AWS
-authorEmail: info@sonraisecurity.com

@@ -1,9 +1,0 @@
-# Built-in Sonrai Bot: srn:supersonrai::bot/944297f0-cf03-4666-9356-1245be6daa42
-version: 2020-11-02
-type: Remediation
-title: Delete VPC
-cloud: AWS
-operation: EXECUTE_PYTHON_SCRIPT
-authorName: Sonrai Security
-authorEmail: info@sonraisecurity.com
-remediationType: DELETE_VPC

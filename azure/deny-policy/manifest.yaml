@@ -1,0 +1,9 @@
+# Built-in Sonrai Bot: srn:supersonrai::bot/c924f10a-4213-49ea-a0f9-35ef48fd97e5
+version: 2021-05-18
+type: Prevention
+title: Ensure tag 'CostCenter' is attached to VM
+description: This Policy ensures that all VMs being created have the tag 'CostCenter' attached
+cloud: Azure
+operation: ATTACH_AZURE_POLICY
+authorName: Sonrai Security
+authorEmail: info@sonraisecurity.com

@@ -7,7 +7,7 @@ from datetime import datetime, timedelta
 def run(ctx):
     #CONSTANTS
     _maxAccountsToAdd = 10
-    _snoozeInterval = 4 #hours
+    _snoozeInterval = 2 #hours
 
     # Get the ticket data from the context
     ticket = ctx.config.get('data').get('ticket')

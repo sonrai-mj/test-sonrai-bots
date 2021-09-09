@@ -4,5 +4,5 @@ type: Remediation
 title: Add AWS Account to Sonrai Sep2
 operation: EXECUTE_PYTHON_SCRIPT
 authorName: Sonrai Security
-cloud: AWS
+cloud: ANY
 authorEmail: info@sonraisecurity.com

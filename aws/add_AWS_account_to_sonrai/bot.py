@@ -136,6 +136,9 @@ def run(ctx):
             if accountToAdd == account_number:
                 add_account = False
 
+        #set default collector
+        collector_srn=default_collector_srn
+
         if add_account:
             accountCount += 1 # this is for maximum number of accounts to be added
 

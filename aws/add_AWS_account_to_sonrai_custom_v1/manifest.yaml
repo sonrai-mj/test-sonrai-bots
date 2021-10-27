@@ -1,0 +1,8 @@
+# Built-in Sonrai Bot: srn:supersonrai::bot/11e93664-743d-4990-802d-33b08d602b2f
+version: 2021-10-27
+type: Remediation
+title: Add AWS Account to Sonrai Custom Version 1
+operation: EXECUTE_PYTHON_SCRIPT
+authorName: Sonrai Security
+cloud: ANY
+authorEmail: info@sonraisecurity.com

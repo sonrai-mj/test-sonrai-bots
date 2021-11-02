@@ -31,4 +31,3 @@ fields:
   - name: "Only add accounts with tag of sonraiSwimlanes"
     required: true
     type: "checkbox"
-    default: true

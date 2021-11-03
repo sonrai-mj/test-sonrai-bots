@@ -28,7 +28,7 @@ fields:
     required: true
     type: "text"
 
-  - name: "Only add accounts with tag of sonraiSwimlanes"
+  - name: "Only add accounts with tag key of sonraiSwimlanes"
     required: true
     type: "checkbox"
     default: true

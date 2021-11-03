@@ -36,6 +36,8 @@ def run(ctx):
             bot_role_name = value
         elif name == 'Collector':
             default_collector_srn = value
+        elif name == 'Only add accounts with tag key of sonraiSwimlanes':
+            tagAccounts = value
 
     #GraphQL query for the AWS accounts
     queryAllAccounts = ('''
@@ -43,16 +45,21 @@ def run(ctx):
       Accounts(
         where: {
           cloudType: { op: EQ, value: "aws" }
+          account: {op: REGEX, value: "[0-9]{12}"}
           tagSet: {
             op: NOT_CONTAINS
             value: "sonraiBotAdded"
             caseSensitive: false
-          }
+          } ''')
+    if tagAccounts == 'true':
+        queryAllAccounts += ('''
           tagSet:{
             op:CONTAINS
             value: "sonraiSwimlanes"
             caseSensitive: false
           }
+          ''')
+    queryAllAccounts += ('''
         }
     ) {
       count
@@ -122,7 +129,7 @@ def run(ctx):
     for item in r_accounts['Accounts']['items']:
         if accountCount >= _maxAccountsToAdd:
             # only adding _maxAccountsToAdd with each pass to prevent too many discoveries at once
-            logging.WARN("maximum number of accounts added for this pass")
+            logging.warn("maximum number of accounts added for this pass")
             break
 
         #step through all AWS accounts to see if it is already added to a collector
@@ -136,13 +143,14 @@ def run(ctx):
             if accountToAdd == account_number:
                 add_account = False
 
-        #set default collector
-        collector_srn=default_collector_srn
-
         if add_account:
+            #set default collector
+            collector_srn=default_collector_srn
+
             accountCount += 1 # this is for maximum number of accounts to be added
 
-            for tag in item['tagSet']:
+            if item['tagSet'] is not None:
+              for tag in item['tagSet']:
                 # find which swimlanes to add account to, from the tags on the account
                 if "sonraiSwimlanes" in tag:
                     swimlaneNames = tag.replace("sonraiSwimlanes:","")
@@ -178,9 +186,9 @@ def run(ctx):
                                      '}'+
                          '}')
             logging.info('Adding Account {} to collector {}'.format(accountToAdd,collector_srn))
-            r_add_account = graphql_client.query(mutation_add_account, variables1)
+            # r_add_account = graphql_client.query(mutation_add_account, variables1)
             variables2 = ('{"key":"sonraiBotAdded","value":"'+ dateStamp + '","srn":"'+account_srn+'"}')
-            r_add_tag = graphql_client.query(mutation_add_tag, variables2)
+            # r_add_tag = graphql_client.query(mutation_add_tag, variables2)
 
 
     # section for adding accounts to swimlanes

@@ -186,9 +186,9 @@ def run(ctx):
                                      '}'+
                          '}')
             logging.info('Adding Account {} to collector {}'.format(accountToAdd,collector_srn))
-            # r_add_account = graphql_client.query(mutation_add_account, variables1)
+            r_add_account = graphql_client.query(mutation_add_account, variables1)
             variables2 = ('{"key":"sonraiBotAdded","value":"'+ dateStamp + '","srn":"'+account_srn+'"}')
-            # r_add_tag = graphql_client.query(mutation_add_tag, variables2)
+            r_add_tag = graphql_client.query(mutation_add_tag, variables2)
 
 
     # section for adding accounts to swimlanes

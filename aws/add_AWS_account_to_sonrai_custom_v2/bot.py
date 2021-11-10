@@ -44,7 +44,9 @@ def run(ctx):
     query Accounts {
       Accounts(
         where: {
-          cloudType: { op: EQ, value: "aws" }
+          active: { op: EQ, value: true }
+          type: { op: EQ, value: AWSAccount }
+          status: { op: NEQ, value: "SUSPENDED" }
           account: {op: REGEX, value: "[0-9]{12}"}
           tagSet: {
             op: NOT_CONTAINS

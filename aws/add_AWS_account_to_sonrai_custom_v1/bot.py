@@ -8,7 +8,7 @@ def run(ctx):
     #CONSTANTS
     _maxAccountsToAdd = 10
     _snoozeInterval = 2 #hours
-    envToSwimlaneMapping = {"prod": "PROD_Test", "non-prod": "Non-Prod_Test", "lab": "LAB_Test"}
+    envToSwimlaneMapping = {"prod": "PROD_All", "non-prod": "Non-Prod_All", "lab": "LAB_All"}
 
     # Get the ticket data from the context
     ticket = ctx.config.get('data').get('ticket')

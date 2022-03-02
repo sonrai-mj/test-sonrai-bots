@@ -173,6 +173,12 @@ def run(ctx):
                     else:
                         # first time seeing this swimlane create a new list for it
                         swimlaneAccountList[swimlane] = [accountToAdd]
+                elif "workload" in tag:
+                    swimlane = tag
+                    if swimlane in swimlaneAccountList:
+                        swimlaneAccountList[swimlane].append(accountToAdd)
+                    else:
+                        swimlaneAccountList[swimlane] = [accountToAdd]
                 elif "sonraiCollector" in tag:
                     # Account has a collector name tag, see if the name has a valid SRN
                     collectorName = tag.replace("sonraiCollector:","")
@@ -230,6 +236,13 @@ def run(ctx):
         }
       }
     ''' )
+    mutation_create_and_add_to_swimlane = ('''
+    mutation createSwimlane($swimlane: SwimlaneCreator!) {
+      CreateSwimlane(value: $swimlane) {
+            srn
+        }
+    }
+    ''')
 
     for swimlane in swimlaneAccountList:
         # prepare to add accounts to swimlane
@@ -242,23 +255,37 @@ def run(ctx):
 
         # check if the swimlane exists
         if r_swimlane_srn['Swimlanes']['count'] == 0:
-            # swimlane doesn't exist skip this one
-            logging.warn(" Swimlane {} doesn't exist skipping.".format(swimlane))
-            continue
+            # swimlane doesn't need to create one
+            logging.warn(" Swimlane {} doesn't exist, creating it.".format(swimlane))
+            # setting default importance to 1 so that the resources can get the importance level from the environment swimlanes
+            # setting the environments to all of them since this could be a swimlane with resources across all environments
+            tmp_variables2 = (
+                '{"swimlane": ' +
+                    '{"description":"' + swimlane + '",' +
+                     '"defaultImportance":1,'
+                     '"title":"' + swimlane + '",' +
+                     '"accounts": [' + str(swimlaneAccountList[swimlane]) + ']' +
+                     '"environments": [ "Sandbox", "Development", "Staging", "Production" ]' +
+                 '}}'
+            )
+            variables2 = tmp_variables2.replace("'", "\"")
+            # create swimlane with list of accounts
+            r_create_swimlane = graphql_client.query(mutation_create_and_add_to_swimlane, variables2)
+        else:
 
-        swimlaneSRN = r_swimlane_srn['Swimlanes']['items'][0]['srn']
+            swimlaneSRN = r_swimlane_srn['Swimlanes']['items'][0]['srn']
 
-        # build the variable for the add to swimlane mutation
-        tmp_variables2 = ('{"srn": "' + swimlaneSRN + '",'+
+            # build the variable for the add to swimlane mutation
+            tmp_variables3 = ('{"srn": "' + swimlaneSRN + '",'+
                       '"swimlane": {' +
                             '"accounts": { "add": ' + str(swimlaneAccountList[swimlane]) + '}' +
                       '}' +
                       '}'
                       )
-        variables2 = tmp_variables2.replace("'", "\"")
+            variables3 = tmp_variables3.replace("'", "\"")
 
-        # add the accounts to swimlane
-        r_add_to_swimlane = graphql_client.query(mutation_add_to_swimlane, variables2)
+            # add the accounts to swimlane
+            r_add_to_swimlane = graphql_client.query(mutation_add_to_swimlane, variables3)
 
 
     # un-snooze and re-snooze the ticket for a shorter time period

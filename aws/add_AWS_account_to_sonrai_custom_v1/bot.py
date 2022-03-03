@@ -47,30 +47,31 @@ def run(ctx):
 
     #GraphQL query for the AWS accounts
     queryAllAccounts = ('''
-    query Accounts {
-      Accounts(
-        where: {
-          cloudType: { op: EQ, value: "aws" }
-          tagSet: {
+    query Accounts { Accounts(
+    where: {
+      cloudType: { op: EQ, value: "aws" }
+      and: [
+        { tagSet: {
             op: NOT_CONTAINS
             value: "sonraiBotAdded"
             caseSensitive: false
-          }
-          tagSet:{
-            op:CONTAINS
+        } }
+        { tagSet: {
+            op: CONTAINS
             value: "sonrai-monitoring:true"
             caseSensitive: false
-          }
-        }
-    ) {
-      count
-      items {
-        account
-        srn
-        tagSet
-      }
+        } }
+      ]
+    }
+  ) {
+    count
+    items {
+      account
+      srn
+      tagSet
     }
   }
+}
     ''')
 
     variables = { }
@@ -174,7 +175,7 @@ def run(ctx):
                         # first time seeing this swimlane create a new list for it
                         swimlaneAccountList[swimlane] = [accountToAdd]
                 elif "workload" in tag:
-                    swimlane = tag
+                    swimlane = tag.replace("workload:","")
                     if swimlane in swimlaneAccountList:
                         swimlaneAccountList[swimlane].append(accountToAdd)
                     else:
@@ -264,11 +265,13 @@ def run(ctx):
                     '{"description":"' + swimlane + '",' +
                      '"defaultImportance":1,'
                      '"title":"' + swimlane + '",' +
-                     '"accounts": [' + str(swimlaneAccountList[swimlane]) + ']' +
+                     '"accounts": ' + str(swimlaneAccountList[swimlane]) + ',' +
                      '"environments": [ "Sandbox", "Development", "Staging", "Production" ]' +
                  '}}'
             )
+            print (mutation_create_and_add_to_swimlane)
             variables2 = tmp_variables2.replace("'", "\"")
+            print (variables2)
             # create swimlane with list of accounts
             r_create_swimlane = graphql_client.query(mutation_create_and_add_to_swimlane, variables2)
         else:

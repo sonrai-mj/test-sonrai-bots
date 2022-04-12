@@ -13,9 +13,11 @@ def run(ctx):
     envToSwimlaneMapping = {"prod": "PROD_All",
                             "non-prod": "Non-Prod_All",
                             "nonprod": "Non-Prod_All",
-                            "uat": "Non-Prod_All",
-                            "stage": "Non-Prod_All",
+                            "dev": "Non-Prod_All",
                             "qar": "Non-Prod_All",
+                            "sit": "Non-Prod_All",
+                            "stage": "Non-Prod_All",
+                            "uat": "Non-Prod_All",
                             "lab": "LAB_All"}
 
     # Get the ticket data from the context

@@ -4,7 +4,7 @@ type: Remediation
 title: Add GCP Projects to Sonrai
 operation: EXECUTE_PYTHON_SCRIPT
 authorName: Sonrai Security
-cloud: Azure
+cloud: GCP
 authorEmail: info@sonraisecurity.com
 requiredPermissions: |-
   No permissions needed

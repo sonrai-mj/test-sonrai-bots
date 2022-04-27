@@ -98,6 +98,6 @@ def create_policy(iam_client=None, policy_arn=None, policy_name=None, policy_to_
             iam_client.create_policy(PolicyName=policy_name, PolicyDocument=policy_to_apply)
             return policy_arn
         else:
-            logging.error('Unknown error part 1 {}'.format(error))
-            logging.error('Unknown error part 2 {}'.format(error.response))
-            return "applesauce"
+            logging.error('Unknown error part 1 #3{}'.format(error))
+            logging.error('Unknown error part 2 #3{}'.format(error.response))
+            return policy_arn

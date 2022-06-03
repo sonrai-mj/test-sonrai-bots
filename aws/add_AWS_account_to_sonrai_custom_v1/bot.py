@@ -11,6 +11,7 @@ def run(ctx):
 
     # additional environments qar, stage and uat map to Non-Prod_All swimlane
     envToSwimlaneMapping = {"prod": "PROD_All",
+                            "test": "Non-Prod_All",
                             "non-prod": "Non-Prod_All",
                             "nonprod": "Non-Prod_All",
                             "dev": "Non-Prod_All",

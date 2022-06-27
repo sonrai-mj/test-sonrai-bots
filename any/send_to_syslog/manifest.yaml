@@ -4,5 +4,5 @@ type: Remediation
 title: Sends ticket details to a syslog server
 operation: EXECUTE_PYTHON_SCRIPT
 authorName: Sonrai Security
-cloud: bob
+cloud: AWS
 authorEmail: info@sonraisecurity.com

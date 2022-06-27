@@ -1,6 +1,6 @@
 # Built-in Sonrai Bot: srn:supersonrai::bot/2132ed2b-8ad5-4d3d-9a0c-9dcc8d8fc216
 version: 2021-02-01
-type: Remedation
+type: Remediation
 title: Sends ticket details to a syslog server
 operation: EXECUTE_PYTHON_SCRIPT
 authorName: Sonrai Security

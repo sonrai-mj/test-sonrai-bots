@@ -123,7 +123,7 @@ def run(ctx):
     for item in r_accounts['Accounts']['items']:
         if accountCount >= _maxAccountsToAdd:
             # only adding _maxAccountsToAdd with each pass to prevent too many discoveries at once
-            logging.WARN("maximum number of accounts added for this pass")
+            logging.warning("maximum number of accounts added for this pass")
             break
 
         #step through all AWS accounts to see if it is already added to a collector

@@ -1,0 +1,10 @@
+# Built-in Sonrai Bot: srn:supersonrai::bot/2bc012e2-73bb-4c04-8a7c-e6ffffffffff
+version: 2021-07-07
+type: Remediation
+title: DummyBot
+operation: EXECUTE_PYTHON_SCRIPT
+authorName: Sonrai Security
+cloud: AWS
+authorEmail: info@sonraisecurity.com
+requiredPermissions: |-
+  No permissions needed

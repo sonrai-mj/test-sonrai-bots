@@ -1,7 +1,7 @@
-# Built-in Sonrai Bot: srn:supersonrai::bot/2bc012e2-73bb-4c04-8a7c-12345fffffff
+# Built-in Sonrai Bot: srn:supersonrai::bot/111012e2-73bb-4c04-8a7c-12345fffffff
 version: 2021-07-07
 type: Remediation
-title: DummyBot2
+title: DummyBot3
 operation: EXECUTE_PYTHON_SCRIPT
 authorName: Sonrai Security
 cloud: AWS

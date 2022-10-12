@@ -8,4 +8,4 @@ def run(ctx):
     for x in ctx.config.get('data'):
         logging.info(x)
         for y in ctx.config.get('data').get(x):
-            print(y)
+            logging.info(y)

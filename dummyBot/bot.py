@@ -1,11 +1,12 @@
 import logging
+import json
 
 def run(ctx):
     #CONSTANTS
 
     # Get the ticket data from the context
     #logging.info (ctx)
-    for x in ctx.config.get('data'):
-        logging.info(x)
-        for y in ctx.config.get('data').get(x):
-            logging.info(y)
+    w = ctx.config.get('data')
+    print (json.dumps(w, indent=4))
+    logging.info("testing log")
+    logging.info (json.dumps(w))

@@ -10,8 +10,8 @@ def add_ticket_comment(ctx, body):
     body
   }
 }''' )
-   ticket_srn = ctx['srn']
-   org_name = ctx['orgName']
+   ticket_srn = ctx.config.get('data').get('srn')
+   org_name = ctx.config.get('data').get('orgName')
    user_srn = 'srn:' + org_name + '::SonraiUser/bot_user'
    variables = ('{"ticketSrn": "' + ticket_srn + '", "body": "' + body + '", "createdBy": "' + user_srn + '" }')
    graphql_client.query(mutation_add_comment, variables)

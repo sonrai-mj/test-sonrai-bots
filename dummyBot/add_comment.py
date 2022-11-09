@@ -1,4 +1,5 @@
 def add_ticket_comment(ctx, body):
+   graphql_client = ctx.graphql_client()
    mutation_add_comment = ('''mutation addTicketComment($ticketSrn: String!, $body: String!, $createdBy: String!) {
   CreateTicketComment(
     input: {body: $body, ticketSrn: $ticketSrn, createdBy: $createdBy}
@@ -10,8 +11,8 @@ def add_ticket_comment(ctx, body):
     body
   }
 }''' )
-   ticket_srn = ctx.config.get('data').get('srn')
-   org_name = ctx.config.get('data').get('orgName')
+   ticket_srn = ctx.config.get('data').get('ticket').get('srn')
+   org_name = ctx.config.get('data').get('ticket').get('orgName')
    user_srn = 'srn:' + org_name + '::SonraiUser/bot_user'
    variables = ('{"ticketSrn": "' + ticket_srn + '", "body": "' + body + '", "createdBy": "' + user_srn + '" }')
    graphql_client.query(mutation_add_comment, variables)

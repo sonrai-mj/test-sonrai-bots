@@ -12,5 +12,5 @@ def run(ctx):
     print (json.dumps(w, indent=4))
     logging.info("testing log")
     logging.info (json.dumps(w))
-    comment = "Adding the following accounts to the collector\n- 333333333333\n- 222222222222\n- 1111111111111"
+    comment = "Adding the following accounts to the collector\\n- 333333333333\\n- 222222222222\\n- 1111111111111"
     ac = add_comment.add_ticket_comment(ctx, comment)
